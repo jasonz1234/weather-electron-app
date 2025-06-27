@@ -3,11 +3,11 @@
 
 <head>
     <!--Metadata-->
-    <meta http-equiv="Content-Security-Policy" content="
+    <!--<meta http-equiv="Content-Security-Policy" content="
   default-src 'self' *.42web.io;
   script-src 'self' 'unsafe-inline' *.42web.io;
   style-src 'self' 'unsafe-inline' *.42web.io;
-">
+">-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <!--Styles-->
@@ -24,7 +24,7 @@
             <img src="./icon.png" id="icon" alt="icon">
         </div>
         <!--title text-->
-        <b>Titlebar</b>
+        <b>Weather</b>
     </div>
 
     <!--This is the user main view box used to fixed the ramdom scroll bar over the title-->
@@ -39,11 +39,77 @@
             </button>
         </div>
         <!--Main Content-->
-        <h1>Hello World! <i class="fa-solid fa-earth-oceania"></i></h1>
-        <p>Current theme: <strong id="theme-source"><i class="fa-solid fa-circle-half-stroke"></i> System</strong></p>
-        <p>Navagation User Agent String: <b id="nav-info"></b></p>
+        <input type="text" id="locationInput" placeholder="Enter location (optional)">
+        <button onclick="getWeather()">Get Weather</button>
+        <div id="weatherOutput"></div>
 
-        <a href="https://google.cat" target="_blank" rel="noopener noreferrer" title="Google don't click will break app"><i class="fa-brands fa-google"></i>Google (WILL break app)</a>
+        <!-- don't know why its not in the renderer -->
+        <script>
+            //setup
+            let useCelsius = true;
+            let lastWeather = null;
+
+            // load location from local storage
+            window.addEventListener("DOMContentLoaded", () => {
+                const savedLocation = localStorage.getItem("savedLocation");
+                if (savedLocation) {
+                    document.getElementById("locationInput").value = savedLocation;
+                    getWeather();
+                }
+            });
+
+            // F converter
+            function toFahrenheit(c) {
+                return (c * 9 / 5 + 32).toFixed(1);
+            }
+
+            // f/c toggler
+            function toggleUnits() {
+                useCelsius = !useCelsius;
+                if (lastWeather) displayWeather(lastWeather);
+            }
+
+            // getting the weather
+            async function getWeather() {
+                // the location input
+                let loc = document.getElementById("locationInput").value.trim();
+
+                // save to localStorage
+                localStorage.setItem("savedLocation", loc);
+
+                // api links
+                const url = loc
+                    ? `https://wttr.in/${encodeURIComponent(loc)}?format=j1`
+                    : `https://wttr.in/?format=j1`;
+
+                try {
+                    const res = await fetch(url);
+                    if (!res.ok) throw new Error("Location not found or API error");
+                    const data = await res.json();
+
+                    lastWeather = data.current_condition[0];
+                    displayWeather(lastWeather);
+                } catch (e) {
+                    document.getElementById("weatherOutput").textContent = e.message;
+                }
+            }
+
+            //show the weather
+            function displayWeather(weather) {
+                const city = document.getElementById("locationInput").value.trim();
+                const tempC = parseFloat(weather.temp_C);
+                const tempF = parseFloat(weather.temp_F);
+                const desc = weather.weatherDesc[0].value;
+
+                const tempDisplay = useCelsius
+                    ? `${tempC}°C`
+                    : `${tempF}°F`;
+
+                document.getElementById("weatherOutput").innerHTML =
+                    `<h1 id="city">${city || "Your Location"}</h1><p id="temp">${tempDisplay}</p><p id="desc">${desc}</p>`;
+            }
+        </script>
+
 
         <!--This is the settings box-->
         <div id="settings-container">
@@ -59,6 +125,7 @@
                 <!--Btns-->
                 <button id="toggle-dark-mode"><i class="fa-solid fa-paintbrush"></i> Toggle Dark Mode</button>
                 <button id="check-updates-btn"><i class="fa-solid fa-up-long"></i> Check for Updates</button>
+                <button onclick="toggleUnits()">Toggle °C/°F</button>
                 <button id="devmode"><i class="fa-solid fa-screwdriver-wrench"></i> Turn On devtools</button><br>
                 <!--text stuff like version-->
                 <span id="update-status"></span>

@@ -1,7 +1,7 @@
 {
-  "name": "yourapp",
-  "productName": "YourApp",
-  "version": "0.0.7-alpha",
+  "name": "weather",
+  "productName": "Weather",
+  "version": "0.0.1-alpha",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -12,8 +12,8 @@
   },
   "build": {
     "asar": true,
-    "appId": "com.jasonz1234.yourapp",
-    "productName": "YourApp",
+    "appId": "com.jasonz1234.weather",
+    "productName": "Weather",
     "copyright": "©jasonz1234 2025",
     "files": [
       "main.js",
@@ -37,7 +37,7 @@
       {
         "provider": "github",
         "owner": "jasonz1234",
-        "repo": "electron-yourapp"
+        "repo": "weather-electron-app"
       }
     ],
     "win": {

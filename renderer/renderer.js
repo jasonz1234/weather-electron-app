@@ -35,7 +35,7 @@ document.getElementById('toggle-dark-mode').addEventListener('click', async () =
 });
 
 // nav info
-document.getElementById('nav-info').innerHTML = navigator.userAgent;
+document.getElementById('nav-info').innerText = navigator.userAgent;
 
 // icon stuff
 icon.addEventListener('click', () => {

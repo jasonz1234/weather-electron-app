@@ -5,11 +5,6 @@ contextBridge.exposeInMainWorld('appInfo', {
   getVersion: () => ipcRenderer.invoke('get-app-version')
 });
 
-// theme handler
-contextBridge.exposeInMainWorld('darkMode', {
-
-})
-
 // exposing apis
 contextBridge.exposeInMainWorld('electronAPI', {
   // Update handles

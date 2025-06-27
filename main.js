@@ -22,10 +22,11 @@ log.info('----Ended Debugging Info----');
 let win;
 function createWindow() {
   win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 400,
+    height: 350,
     frame: true,
-    title: 'YourApp',
+    title: 'Weather',
+    backgroundMaterial: 'mica',
     roundedCorners: true,
     icon: './renderer/icon.png',
     titleBarStyle: "hidden",
@@ -41,13 +42,14 @@ function createWindow() {
       contextIsolation: true,
       devTools: true,
       nodeIntegration: false,
-      accessibleTitle: "Your App",
+      accessibleTitle: "Weather",
       safeDialogs: true,
       scrollBounce: true,
       spellcheck: false,
       javascript: true
     }
   });
+
   //load app page
   win.loadFile('renderer/index.html');
 
@@ -71,7 +73,7 @@ function createWindow() {
   //force close devtools
   win.webContents.on('devtools-opened', () => {
     if (allowDevTools != true) {
-      win.webContents.closeDevTools();
+      //win.webContents.closeDevTools();
     }
   });
 }
@@ -192,7 +194,7 @@ ipcMain.handle('check-for-updates', () => {
 
 // Respond to version request
 ipcMain.handle('get-app-version', () => {
-  return "YourApp Version: " + app.getVersion();
+  return "Weather Version: " + app.getVersion();
 });
 
 // Devtools controller thing
