@@ -108,7 +108,6 @@ jobs:
           files: |
             dist-artifacts/linux-dist/*.deb
             dist-artifacts/linux-dist/*.AppImage
-            dist-artifacts/linux-dist/*.blockmap
             dist-artifacts/linux-dist/*.yml
 
             dist-artifacts/win-x64-dist/*.exe
