@@ -121,5 +121,5 @@ jobs:
 
             dist-artifacts/macos-dist/*.dmg
             dist-artifacts/macos-dist/*.blockmap
-            dist-artifacts/macos-dist/latest.yml*
+            dist-artifacts/macos-dist/latest*.yml
 
