@@ -62,3 +62,37 @@ jobs:
         with:
           name: macos-universal-build
           path: dist/
+  release:
+    runs-on: ubuntu-latest
+    needs: [build-linux, build-win-x64, build-win-arm64, build-macos]
+    steps:
+    - uses: actions/download-artifact@v4
+      with:
+        path: dist-artifacts
+
+    - name: Get version from build-linux
+      run: echo "RELEASE_VERSION=${{ needs.build-linux.outputs.version }}" >> $GITHUB_ENV
+
+    - name: Create Draft GitHub Release with raw files and metadata
+      uses: softprops/action-gh-release@v2
+      with:
+        name: Weather ${{ env.RELEASE_VERSION }}
+        tag_name: v${{ env.RELEASE_VERSION }}
+        draft: true
+        files: |
+          dist-artifacts/linux-dist/*.deb
+          dist-artifacts/linux-dist/*.AppImage
+          dist-artifacts/linux-dist/*.blockmap
+          dist-artifacts/linux-dist/latest*.yaml
+
+          dist-artifacts/win-x64-dist/*.exe
+          dist-artifacts/win-x64-dist/*.blockmap
+          dist-artifacts/win-x64-dist/latest*.yaml
+
+          dist-artifacts/win-arm64-dist/*.exe
+          dist-artifacts/win-arm64-dist/*.blockmap
+          dist-artifacts/win-arm64-dist/latest*.yaml
+
+          dist-artifacts/macos-dist/*.dmg
+          dist-artifacts/macos-dist/*.blockmap
+          dist-artifacts/macos-dist/latest*.yaml
