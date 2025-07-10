@@ -7,20 +7,58 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-linux:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 'lts/*'
+      - run: npm install
+      - run: npm run build-l
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux-build
+          path: dist/
 
-      - name: Install dependencies
-        run: npm install
+  build-win-x64:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+      - run: npm install
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-x64-build
+          path: dist/
 
-      - name: Build Electron App (no publish)
-        run: npm run build-m -- --publish=never
+  build-win-arm64:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+      - run: npm install
+      - run: npm run build-w-arm
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-arm64-build
+          path: dist/
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+      - run: npm install
+      - run: npm run build-m
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos-universal-build
+          path: dist/
