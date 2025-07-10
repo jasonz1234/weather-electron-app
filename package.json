@@ -5,10 +5,10 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder -w",
-    "build-w-arm": "electron-builder -w --arm64",
-    "build-l": "electron-builder -l",
-    "build-m": "electron-builder -m --universal"
+    "build": "electron-builder -w --publish=never",
+    "build-w-arm": "electron-builder -w --arm64 --publish=never",
+    "build-l": "electron-builder -l --publish=never",
+    "build-m": "electron-builder -m --universal --publish=never"
   },
   "build": {
     "asar": true,
