@@ -109,16 +109,16 @@ jobs:
             dist-artifacts/linux-dist/*.deb
             dist-artifacts/linux-dist/*.AppImage
             dist-artifacts/linux-dist/*.blockmap
-            dist-artifacts/linux-dist/latest*.yaml
+            dist-artifacts/linux-dist/*.yml
 
             dist-artifacts/win-x64-dist/*.exe
             dist-artifacts/win-x64-dist/*.blockmap
-            dist-artifacts/win-x64-dist/latest*.yaml
+            dist-artifacts/win-x64-dist/*.yml
 
             dist-artifacts/win-arm64-dist/*.exe
             dist-artifacts/win-arm64-dist/*.blockmap
-            dist-artifacts/win-arm64-dist/latest*.yaml
+            dist-artifacts/win-arm64-dist/*.yml
 
             dist-artifacts/macos-dist/*.dmg
             dist-artifacts/macos-dist/*.blockmap
-            dist-artifacts/macos-dist/latest*.yaml
+            dist-artifacts/macos-dist/*.yml
