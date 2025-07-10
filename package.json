@@ -71,7 +71,7 @@
       "category": "Utility",
       "maintainer": "jasonz1234 150748837+jasonz1234@users.noreply.github.com",
       "icon": "build/icon.png",
-      "artifactName": "${productName}-${version}-setup.${ext}",
+      "artifactName": "${productName}-${version}-${os}-${arch}-setup.${ext}",
       "executableName": "your-app"
     },
     "mac": {
