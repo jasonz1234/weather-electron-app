@@ -103,7 +103,7 @@ jobs:
       - name: Create Draft GitHub Release with raw files and metadata
         uses: softprops/action-gh-release@v2
         with:
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           name: Weather ${{ env.RELEASE_VERSION }}
           tag_name: v${{ env.RELEASE_VERSION }}
           draft: true
@@ -123,3 +123,4 @@ jobs:
             dist-artifacts/macos-dist/*.dmg
             dist-artifacts/macos-dist/*.blockmap
             dist-artifacts/macos-dist/*.yml
+
